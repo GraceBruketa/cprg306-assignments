@@ -6,14 +6,32 @@ import { useState } from "react";
 
 export default function NewItem() {
     const [quantity, setQuantity] = useState(1);
-   
-    return (
-        <div className="flex flex-col grow justify-center items-center bg-blue-1000 pt-6">
-            <Increment setQuantity={setQuantity} />
-            <span className= "py-1">{quantity}</span>
-            <Decrement setQuantity={setQuantity} />
-        </div>
-    );
+    const [name, setName] = useState("");
+    const [category, setCategory] = useState("Produce");
+
+    const nameField = (event) => {
+        let name = event.target.value;
+        name = name.replace(/[^a-zA-Z\s]/g, "");
+        setName(name);
+      };
+
+      
+    const categoryField = (event) => {
+        let category = event.target.value;
+        category = category.replace(/[^a-zA-Z\s]/g, "");
+        setCategory(category);
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        let item = { quantity, name, category };
+        console.log(item); // eventually save to a database
+    
+        // reset form
+        setQuantity(1);
+        setName("");
+        setCategory("Produce");
+      };
 
 function Increment() {
    const increment = () => setQuantity(quantity + 1);
@@ -36,4 +54,37 @@ function Decrement() {
         </div>
     );
 }
+return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label>Name:</label>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Enter item name"
+        />
+      </div>
+      <div>
+        <label>Quantity:</label>
+        <input
+          type="number"
+          value={quantity}
+          onChange={(e) => setQuantity(e.target.value)}
+        />
+      </div>
+      <div>
+        <label>Category:</label>
+        <input
+          type="text"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          placeholder="Enter item category"
+        />
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  );
 }
+
+// export default function NewItem() {
