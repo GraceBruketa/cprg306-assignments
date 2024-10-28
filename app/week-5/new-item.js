@@ -5,7 +5,7 @@ import { useState } from "react";
 //Use the useState hook to create a state variable called quantity and a setter function called setQuantity.
 
 export default function NewItem() {
-    const [quantity, setQuantity] = useState(1);
+    const [quantity, setQuantity] = useState(0);
     const [name, setName] = useState("");
     const [category, setCategory] = useState("Produce");
 
@@ -55,35 +55,47 @@ function Decrement() {
     );
 }
 return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Name:</label>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Enter item name"
-        />
-      </div>
-      <div>
-        <label>Quantity:</label>
-        <input
-          type="number"
-          value={quantity}
-          onChange={(e) => setQuantity(e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Category:</label>
-        <input
-          type="text"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          placeholder="Enter item category"
-        />
-      </div>
-      <button type="submit">Submit</button>
-    </form>
+  <main className="m-2 ">
+    <h1 className="text-2xl">New Item</h1>
+      <form className="m-2" onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="name">Name:</label>
+          <input
+            id="name"
+            type="text"
+            value={name}
+            onChange={(event) => nameField(event)}
+            className="border border-black m-2 text-black"
+          />
+        </div>
+        <div>
+          <label htmlFor="quantity">Quantity:</label>
+          <input
+            id="quantity"
+            type="number"
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
+            className="border border-black m-2 text-black"
+          />
+        </div>
+        <div>
+          <label htmlFor="category">Category:</label>
+          <select value= {category} onChange={(event) => categoryField(event)} className="border border-black m-2 text-black">
+            <option>Produce</option>
+            <option>Dairy</option>
+            <option>Bakery</option>
+            <option>Meat</option>
+            <option>Frozen Foods</option>
+            <option>Snacks</option>
+            <option>Canned Goods</option>
+            <option>Beverages</option>
+            <option>Household</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+  </main>
   );
 }
 
