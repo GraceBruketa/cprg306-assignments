@@ -93,7 +93,7 @@ return (
             <option>Other</option>
           </select>
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit" className="bg-blue-500 hover:bg-slate-300 rounded w-16">Submit</button>
       </form>
   </main>
   );
