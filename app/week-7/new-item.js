@@ -4,10 +4,10 @@ import { useState } from "react";
 
 //Use the useState hook to create a state variable called quantity and a setter function called setQuantity.
 
-export function NewItem() {
+export default function NewItem({onAddItem}) {
     const [quantity, setQuantity] = useState(1);
     const [name, setName] = useState("");
-    const [category, setCategory] = useState("Produce");
+    const [category, setCategory] = useState("Produce");    
 
     const nameField = (event) => {
         let name = event.target.value;
@@ -23,13 +23,13 @@ export function NewItem() {
     const handleSubmit = (event) => {
         event.preventDefault();
         let item = { quantity, name, category };
-        console.log(item); // eventually save to a database
-    
-        // reset form
+        console.log(item);
+        alert(`New item added: ${item.quantity} ${item.name} to category - ${item.category}`);
+        onAddItem(item);
         setQuantity(1);
         setName("");
         setCategory("Produce");
-      };
+    };
 
 function Increment() {
     const increment = () => setQuantity(quantity + 1);
@@ -42,52 +42,63 @@ function Increment() {
     );
     }
     
-    function Decrement() {
-        const decrement = () => setQuantity(quantity - 1);
-        console.log(quantity);
-        return (
-            <div>
-                <button onClick={decrement}className="flex-auto w-32 p-2 m-2 bg-blue-500 text-white font-bold rounded-lg"
-                    disabled={quantity <= 1}>-</button>
-            </div>
-        );
+function Decrement() {
+    const decrement = () => setQuantity(quantity - 1);
+    console.log(quantity);
+    return (
+        <div>
+            <button onClick={decrement}className="flex-auto w-32 p-2 m-2 bg-blue-500 text-white font-bold rounded-lg"
+                disabled={quantity <= 1}>-</button>
+        </div>
+    );
     }
    
-    return (
-        <form onSubmit={handleSubmit}className="flex-auto bg-slate-600 rounded w-80 items-center m-2">
-            <div>
-                <label htmlFor="name" className="text-2xl text-center text-slate-200 items-center m-2">Name:</label>
-                <input
-                    id="name"
-                    type="text"
-                    value={name}
-                    onChange={(event) => nameField(event)}
-                    className="border border-black m-2 text-black"
-                />
-             </div>
-            <div>
-            <div>
-                <label htmlFor="category" className="text-2xl text-center text-slate-200 items-center m-2">Category:</label>
-                <select value= {category} onChange={(event) => categoryField(event)} className="border border-black m-2 text-black">
-                    <option>Produce</option>
-                    <option>Dairy</option>
-                    <option>Bakery</option>
-                    <option>Meat</option>
-                    <option>Frozen Foods</option>
-                    <option>Snacks</option>
-                    <option>Canned Goods</option>
-                    <option>Beverages</option>
-                    <option>Household</option>
-                    <option>Other</option>
-                </select>
+return (
+    <form onSubmit={handleSubmit}className="flex-auto bg-slate-600 rounded w-80 items-center m-2">
+        <div>
+            <label htmlFor="name" className="text-2xl text-center text-slate-200 items-center m-2">Name:</label>
+            <input
+                id="name"
+                type="text"
+                value={name}
+                onChange={(event) => nameField(event)}
+                className="border border-black m-2 text-black"
+            />
             </div>
-                <div className="flex flex-row items-center"> <label className="text-2xl text-center w-10">{quantity}</label>
-                    <div><Increment/></div>
-                    <div><Decrement/></div>
-                </div>
+        <div>
+        <div>
+            <label htmlFor="category" className="text-2xl text-center text-slate-200 items-center m-2">Category:</label>
+            <select value= {category} onChange={(event) => categoryField(event)} className="border border-black m-2 text-black">
+                <option>Produce</option>
+                <option>Dairy</option>
+                <option>Bakery</option>
+                <option>Meat</option>
+                <option>Frozen Foods</option>
+                <option>Snacks</option>
+                <option>Canned Goods</option>
+                <option>Beverages</option>
+                <option>Household</option>
+                <option>Other</option>
+            </select>
+        </div>
+            <div className="flex flex-row items-center"> <label className="text-2xl text-center w-10">{quantity}</label>
+                <div><Increment/></div>
+                <div><Decrement/></div>
             </div>
-            <button type="submit" className=" text-lg bg-slate-500 hover:bg-slate-300 rounded w-16 items-center m-2">Submit</button>
-        </form>
+        </div>
+        <button type="submit" className=" text-lg bg-slate-500 hover:bg-slate-300 rounded w-16 items-center m-2">Submit</button>
+    </form>
     );
 }
-export default NewItem;
+export function handleSubmit(){
+    const newItem = {
+        name: Item.name,
+        quantity: Item.quantity,
+        category: Item.category
+    };
+    console.log(newItem);
+    alert(`New item added: ${newItem.quantity} ${newItem.name} to ${newItem.category}`);
+    setName("");
+    setQuantity(1);
+    setCategory("Select a category");
+}

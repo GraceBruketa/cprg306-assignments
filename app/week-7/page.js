@@ -9,16 +9,19 @@ import { useState } from "react";
 export default function Page() {
     const [items, setItems] = useState(itemsData);
 
-    const handleAddItem = (newItem) => {
-        setItems([...items, newItem]);
+    const handleAddItem = (item) => {
+        setItems([...items, item]);
     }
+    const handleDeleteItem = (id) => {
+        setItems(items.filter((item) => item.id !== id));  
+    };
 
     return (
         <main>
             <h1 className="text-4xl font-bold text-slate-300 ">Shopping List</h1>
-                <NewItem onAddItem={handleAddItem} />
+                <NewItem items={items} onAddItem={handleAddItem} />
             <section className="flex justify-between items-center">
-                <ItemList items={items} onAddItem={handleAddItem}/>
+                <ItemList items={items} onAddItem={handleDeleteItem}/>
             </section>
         </main>
     )

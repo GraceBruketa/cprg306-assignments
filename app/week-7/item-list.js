@@ -1,14 +1,14 @@
 "use client"; 
 
-import itemsJson from "./items.json";
+import itemsData from "./items.json";
 import { useState } from "react";
-import NewItem from "./new-item";
+
 
 
 export function ItemList () {
 
   const [sortBy, setSortBy] = useState("name");
-  let items = [...itemsJson];
+  let items = [...itemsData];
 
   items.sort((a, b) => {
     if (sortBy === "name") {
@@ -25,7 +25,7 @@ export function ItemList () {
 
   return (
     <main>
-        <div className="Flex ...">
+        <div className="flex-row">
             <label className="m-2 text-2xl font-bold">Sort By: </label>
             <button 
             onClick={() => handleSortChange("name")} 
