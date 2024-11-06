@@ -19,7 +19,7 @@ export default function ItemList({ items, onDeleteItem }) {
       setSortBy(value);
     };
     return (
-        <main lassName="flex-row">
+        <main className="flex-row">
             <div className="flex-row">
                 <label className="m-2 text-2xl font-bold">Sort By: </label>
                 <button 

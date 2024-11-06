@@ -35,7 +35,7 @@ export default function NewItem({ onAddItem }) {
         console.log(quantity);
         return (
             <div>
-                <button onClick={increment} className="flex-auto w-32 p-2 m-2 bg-blue-500 text-white rounded-lg"
+                <button onClick={increment} className="flex-auto hover:bg-blue-700 w-32 p-2 m-2 bg-blue-500 text-white rounded-lg"
                         disabled={quantity >=20}>+</button>
             </div>
         );
@@ -46,7 +46,7 @@ export default function NewItem({ onAddItem }) {
         console.log(quantity);
         return (
             <div>
-                <button onClick={decrement}className="flex-auto w-32 p-2 m-2 bg-blue-500 text-white font-bold rounded-lg"
+                <button onClick={decrement}className="flex-auto w-32 hover:bg-blue-700 p-2 m-2 bg-blue-500 text-white font-bold rounded-lg"
                     disabled={quantity <= 1}>-</button>
             </div>
         );
@@ -61,12 +61,12 @@ export default function NewItem({ onAddItem }) {
                     type="text"
                     value={name}
                     onChange={(event) => nameField(event)}
-                    className="border border-black m-2 text-black"
+                    className="border border-black m-2 text-black rounded w-50"
                 />
             </div>
             <div>
                 <label htmlFor="category" className="text-2xl text-center text-slate-200 items-center m-2">Category:</label>
-                <select value= {category} onChange={(event) => categoryField(event)} className="border border-black m-2 text-black">
+                <select value= {category} onChange={(event) => categoryField(event)} className="border border-black m-2 text-black rounded w-50">
                     <option>Produce</option>
                     <option>Dairy</option>
                     <option>Bakery</option>
@@ -83,7 +83,7 @@ export default function NewItem({ onAddItem }) {
                 <div><Increment/></div>
                 <div><Decrement/></div>
             </div>
-            <button type="submit" className="flex-auto w-32 p-2 m-2 bg-blue-500 text-white rounded-lg">Add Item</button>
+            <button type="submit" className="flex-auto w-32 p-2 m-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700">Add Item</button>
         </form>
     );
 }
