@@ -1,14 +1,11 @@
-export default function Item({ id, name, category, quantity, onDeleteItem }) {
+export default function Item({ id, name, category, quantity, onDeleteItem, onSelect }) {
     return(
-        <div>
-            <li className="m-2 p-2 bg-gray-700 w-80 text-center rounded">
-                <ul>
-                    <h2 className="text-blue-500 capitalize">{name}</h2>
-                    <h2 className="text-blue-300">Buy {quantity} In {category}</h2>
-                </ul>
-            </li>
+        <section className="m-5 bg-[#0f172a] p-3 w-1/4 cursor-pointer" onClick={() => onSelect({ name, quantity, category })}>
+            <h2 className="text-2xl font-bold">{name}</h2>
+            <p>
+                Buy {quantity} in {category}
+            </p>
             <button onClick={() => onDeleteItem(id)} className="flex-auto w-32 p-2 m-2 bg-red-500 text-white rounded-lg">Delete</button>
-        </div>
-
+        </section>
     );
 }

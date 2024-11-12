@@ -3,51 +3,50 @@
 import { useState } from "react";
 import { useEffect } from "react";
 
-export default function MealIdeas(ingredient) {
+function MealIdeas(ingredient) {
+    console.log("Ingredient:", ingredient);
     const [meals, setMeals] = useState([]);
-    const [search, setSearch] = useState("");
-    const [query, setQuery] = useState("chicken");
 
-    useEffect(() => {
-        getMeals();
-    }, [query]);
-
-    const fetchMealIdeas = async () => {
-        const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
-        const data = await response.json();
-        setMeals(data.meals);
+    const fetchMealIdeas = async (ingredient) => {
+        const apiUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+    
+        try {
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+            return data.meals; // The API returns a list of meals in the 'meals' array
+          } catch (error) {
+            console.error('Error fetching meal ideas:', error);
+            return [];
+        };
     };
 
-    const updateSearch = (e) => {
-        setSearch(e.target.value);
-    };
-
-    const getSearch = (e) => {
-        e.preventDefault();
-        setQuery(search);
-        setSearch("");
-    };
-
-    function LoadMealIdeas(){
-        fetchMealIdeas(ingredient);
-        const loadMealIdeas = () => setMeals(data.meals);
-
-    }
+    const loadMealIdeas = async (ingredient) => {
+        const mealIdeas = await fetchMealIdeas(ingredient);
+        setMeals(mealIdeas);
+      };
+    
+      useEffect(() => {
+        if (ingredient) {
+          loadMealIdeas(ingredient);
+        }
+      }, [ingredient]);
 
     return (
         <div>
-            <form onSubmit={getSearch} className="search-form">
-                <input className="search-bar" type="text" value={search} onChange={updateSearch} />
-                <button className="search-button" type="submit">Search</button>
-            </form>
-            <div className="meals">
-                {meals.map((meal) => (
-                    <div className="meal">
-                        <h1>{meal.strMeal}</h1>
-                        <img src={meal.strMealThumb} alt="meal" />
-                    </div>
-                ))}
-            </div>
+          <h2>Meal Ideas for {ingredient}</h2>
+          <ul>
+            {meals.length === 0 ? (
+              <li>No meal ideas found</li>
+            ) : (
+              meals.map((meal) => (
+                <li key={meal.idMeal}>
+                  <p>{meal.strMeal}</p>
+                </li>
+              ))
+            )}
+          </ul>
         </div>
-    );
-}
+      );
+    };
+    
+export default MealIdeas;
