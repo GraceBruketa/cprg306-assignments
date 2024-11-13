@@ -1,45 +1,38 @@
 "use client";
-
-import NewItem from "../week-8/new-item";
-import itemData from "./items.json";
-import ItemList from "./item-list";
-import MealIdeas from "./meal-ideas";
-import { useState } from "react";
+import ItemList from "./item-list.js";
+import NewItem from "./new-item.js";
+import itemsJson from "./items.json";
+import { useEffect, useState } from "react";
+import MealList from "./meal-list.js";
 
 export default function Page() {
-    const [items, setItems] = useState(itemData);
-    const [selectedItem, setSelectedItem] = useState("");
+  const listData = itemsJson.map((item) => ({ ...item }));
+  const [list, setList] = useState(listData);
+  const [mainIngredient,setMainIngredient] = useState('');
+  const addItem = (newItem) => {
+    // console.dir(newItem)
+    // const updatedList = [...list, newItem];
+    setList([...list, newItem]);
+    console.dir(list)
+    console.dir(newItem)
+    // setList(list.push(newItem))
+  };
+  // const displayMeals =(event)=>{
 
-    const handleAddItem = (item) => { 
-        setItems([...items, item]);
-    }
+  //   // setMainIngredient(item.name);
+  //   console.dir(event.target.getAttribute("meal-name"));
 
-    const handleDeleteItem = (id) => {
-        setItems(items.filter((item) => item.id !== id)); 
-    }
+  // }
 
-    const handleItemSelect = (selectedItem) => {
-        const cleanedName = selectedItem
-          .split(",")[0]
-          .split(" ")
-          .slice(0, 2)
-          .map((word) => word.replace(/[^\w\s]/g, ""))
-          .join(" ")
-          .trim();
-    
-        setSelectedItem(cleanedName);
-      };
-    return (
-        <main>
-            <h1 className="m-2 text-4xl font-bold ">Shopping List</h1>
-            <div>
-                <NewItem onAddItem={handleAddItem} />
-                <ItemList items={items} onDeleteItem={handleDeleteItem} onItemSelect={handleItemSelect} />
-            </div>
-            <div className="w-1/2">
-                <MealIdeas ingredient={selectedItem} /> {}
-            </div>
-        </main>
-    );
 
+  return (
+    <main className="">
+      <h1 className=" flex  justify-center   text-5xl m-9  ">Shopping List</h1>
+      <div className=" flex items-start  justify-center  ">
+        <NewItem additemFunc={addItem}  />
+        <ItemList list={list}  />
+      
+      </div>
+    </main>
+  );
 }
