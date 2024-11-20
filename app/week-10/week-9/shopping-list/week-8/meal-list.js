@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Meal from "./meal-ideasnpm";
+import Meal from "./mealIdea";
 
 export default function MealList({ mainIngredient }) {
   let mI = mainIngredient;
